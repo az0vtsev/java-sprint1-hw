@@ -82,4 +82,22 @@ public class YearlyReport {
         System.out.println(averageExpense);
         System.out.println(averageIncome);
     }
+
+    public String compareTotalValues(MonthlyReport monthlyReport) {
+        String result ="Сверка прошла успешно";
+
+        for (YearlyRecord record: listOfRecords) {
+            int monthReportIndex = monthlyReport.getMonthIndex();
+            int yearReportIndex = record.getMonthIndex();
+            if ( ( yearReportIndex == monthReportIndex) && !record.isExpense() ) {
+                if (record.getAmount() != monthlyReport.getTotalIncome())
+                    result = MonthlyReport.MONTHS[monthReportIndex-1];
+            }
+            if ( (yearReportIndex == monthReportIndex) && record.isExpense() ) {
+                if (record.getAmount() != monthlyReport.getTotalExpense())
+                    result = MonthlyReport.MONTHS[monthReportIndex-1];
+            }
+        }
+        return result;
+    }
 }
